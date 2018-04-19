@@ -86,6 +86,7 @@ CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER = "Card number";
 CardJs.NAME_PLACEHOLDER =  "Name on card";
 CardJs.EXPIRY_MASK = "XX / XX";
 CardJs.EXPIRY_PLACEHOLDER = "MM / YY";
+CardJs.EXPIRY_MONTHYEAR_VALUE = "";
 CardJs.EXPIRY_USE_DROPDOWNS = false;
 CardJs.EXPIRY_NUMBER_OF_YEARS = 10;
 CardJs.CVC_MASK_3 = "XXX";
@@ -1237,7 +1238,8 @@ CardJs.prototype.setupExpiryInput = function() {
     if (!CardJs.elementHasAttribute(this.expiryMonthYearInput, "placeholder")) {
       this.expiryMonthYearInput.attr("placeholder", CardJs.EXPIRY_PLACEHOLDER);
     }
-
+    
+    this.expiryMonthYearInput.attr("value", CardJs.EXPIRY_MONTHYEAR_VALUE);
     this.expiryMonthYearInput.attr("type", "tel");
     this.expiryMonthYearInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
     this.expiryMonthYearInput.attr("x-autocompletetype", "cc-exp");
