@@ -82,8 +82,8 @@ CardJs.CREDIT_CARD_NUMBER_AMEX_MASK       = "XXXX XXXXXX XXXXX";
 CardJs.CREDIT_CARD_NUMBER_DINERS_MASK     = "XXXX XXXX XXXX XX";
 
 CardJs.prototype.creditCardNumberMask = CardJs.CREDIT_CARD_NUMBER_DEFAULT_MASK;
-CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER = "Card number";
-CardJs.NAME_PLACEHOLDER =  "Name on card";
+CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER = "信用卡號";
+CardJs.NAME_PLACEHOLDER =  "手機號碼";
 CardJs.EXPIRY_MASK = "XX / XX";
 CardJs.EXPIRY_PLACEHOLDER = "MM / YY";
 CardJs.EXPIRY_MONTH_VALUE = "";
@@ -92,7 +92,7 @@ CardJs.EXPIRY_USE_DROPDOWNS = false;
 CardJs.EXPIRY_NUMBER_OF_YEARS = 10;
 CardJs.CVC_MASK_3 = "XXX";
 CardJs.CVC_MASK_4 = "XXXX";
-CardJs.CVC_PLACEHOLDER =  "CVC";
+CardJs.CVC_PLACEHOLDER =  "安全碼";
 
 
 
@@ -1242,7 +1242,9 @@ CardJs.prototype.setupExpiryInput = function() {
     
     this.expiryMonthInput.attr("value", CardJs.EXPIRY_MONTH_VALUE);
     this.expiryYearInput.attr("value", CardJs.EXPIRY_YEAR_VALUE);
-    this.expiryMonthYearInput.attr("value", CardJs.EXPIRY_MONTH_VALUE + ' / ' + CardJs.EXPIRY_YEAR_VALUE);
+    if (CardJs.EXPIRY_MONTH_VALUE && CardJs.EXPIRY_YEAR_VALUE){
+      this.expiryMonthYearInput.attr("value", CardJs.EXPIRY_MONTH_VALUE + ' / ' + CardJs.EXPIRY_YEAR_VALUE);
+    }
 
     this.expiryMonthYearInput.attr("type", "tel");
     this.expiryMonthYearInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
