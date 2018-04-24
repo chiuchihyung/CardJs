@@ -540,7 +540,7 @@ CardJs.filterNumberOnlyKey = function(e) {
   var isKeyboardCommand = CardJs.keyIsKeyboardCommand(e);
   var isTab = CardJs.keyIsTab(e);
 
-  if(!isNumber && !isDeletion && !isArrow && !isNavigation && !isKeyboardCommand && !isTab) {
+  if (!isNumber && !isDeletion && !isArrow && !isNavigation && !isKeyboardCommand && !isTab) {
     e.preventDefault();
   }
 };
@@ -642,6 +642,7 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
 
     CardJs.setCaretPosition(element, newCaretPosition);
   }
+
 };
 
 
@@ -1050,6 +1051,15 @@ CardJs.prototype.initCardNumberInput = function() {
       $this.refreshCreditCardTypeIcon();
     }, 1);
   });
+
+  // support chinese input keyup event 
+  this.cardNumberInput.on('keyup', function () {
+    setTimeout(function () {
+      $this.refreshCreditCardNumberFormat();
+      $this.refreshCreditCardTypeIcon();
+    }, 1);
+  });
+  
 };
 
 
@@ -1271,19 +1281,35 @@ CardJs.prototype.setupExpiryInput = function() {
 
       if(!$this.EXPIRY_USE_DROPDOWNS && $this.expiryMonthYearInput != null) {
         $this.expiryMonthInput.val($this.expiryMonth());
-
-
         $this.expiryYearInput.val(val.length == 7 ? val.substr(5,2) : null);
       }
     });
 
-    this.expiryMonthYearInput.blur(function() {
-      $this.refreshExpiryMonthValidation();
-    });
+    // not support on mobile
+    // this.expiryMonthYearInput.blur(function() {
+    //   $this.refreshExpiryMonthValidation();
+    // });
 
     this.expiryMonthYearInput.on('paste', function() {
       setTimeout(function() {
         $this.refreshExpiryMonthYearInput();
+      }, 1);
+    });
+
+    // support chinese input keyup event
+    this.expiryMonthYearInput.on('keyup', function () {
+      setTimeout(function () {
+
+        // refresh MonthYearInput
+        $this.refreshExpiryMonthYearInput();
+
+        // reset hidden expiry month year
+        var val = $this.expiryMonthYearInput.val();
+        if (!$this.EXPIRY_USE_DROPDOWNS && $this.expiryMonthYearInput != null) {
+          $this.expiryMonthInput.val($this.expiryMonth());
+          $this.expiryYearInput.val(val.length == 7 ? val.substr(5, 2) : null);
+        }
+
       }, 1);
     });
 
